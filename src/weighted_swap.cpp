@@ -31,18 +31,17 @@ with the same row and column sums.
 @seed: optional seed for random number generators
 */
 // [[Rcpp::export]]
-List simple_swap_n(SEXP Re_from, SEXP Re_to, int n, double swap_p, double seed) {
+List simple_swap_n(SEXP Re_from, SEXP Re_to, int n, double swap_p, double seed=-1) {
   // Create cpp versions of R objects
   Rcpp::NumericVector e_from(Re_from);
   Rcpp::NumericVector e_to(Re_to);
   int m = e_from.size();  // number of edges
   // Make random number generators
-  if(seed){
-      std::mt19937 gen(seed);  // random number generator
-  } else {
+  if(seed==-1){
       std::random_device rd;  // used to create a seed
-      std::mt19937 gen(rd());  // random number generator
+      seed = rd();
   }
+  std::mt19937 gen(seed);  // random number generator
   std::uniform_int_distribution<> randint(0, m-1);  // for selecting an edge
   std::uniform_real_distribution<> randu(0.0, 1.0);  // for deciding whether to swap
   double u;
@@ -111,7 +110,7 @@ with the same row and column sums, with probabilities determined by the edge wei
 @seed: optional seed for random number generators
 */
 // [[Rcpp::export]]
-List swap_n(SEXP Re_from, SEXP Re_to, int n, SEXP Rw, SEXP Rz_from, SEXP Rz_to, double seed=NULL) {
+List swap_n(SEXP Re_from, SEXP Re_to, int n, SEXP Rw, SEXP Rz_from, SEXP Rz_to, double seed=-1) {
   // Create cpp versions of R objects
   Rcpp::NumericVector e_from(Re_from); // edge tails
   Rcpp::NumericVector e_to(Re_to);  // edge heads
@@ -120,12 +119,11 @@ List swap_n(SEXP Re_from, SEXP Re_to, int n, SEXP Rw, SEXP Rz_from, SEXP Rz_to, 
   Rcpp::NumericMatrix w(Rw);  // matrix of edge weights
   int m = e_from.size();  // number of edges
   // Make random number generators
-  if(seed){
-      std::mt19937 gen(seed);  // random number generator
-  } else {
+  if(seed==-1){
       std::random_device rd;  // used to create a seed
-      std::mt19937 gen(rd());  // random number generator
+      seed = rd();
   }
+  std::mt19937 gen(seed);  // random number generator
   std::uniform_int_distribution<> randint(0, m-1);  // for selecting an edge
   std::uniform_real_distribution<> randu(0.0, 1.0);  // for deciding whether to swap
   double u;
