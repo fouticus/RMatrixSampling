@@ -1,0 +1,7 @@
+.RData
+.Rhistory
+.Rproj.user
+*.rds
+MatrixSampling.Rproj
+src/*.o
+src/*.dll
