@@ -2,7 +2,7 @@
 .Rhistory
 .Rproj.user
 *.rds
-MatrixSampling.Rproj
+*Rproj
 src/*.o
 src/*.so
 src/*.dll
