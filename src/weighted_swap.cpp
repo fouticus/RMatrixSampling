@@ -15,21 +15,20 @@ struct pair_equal {
     return (p1.first == p2.first) && (p1.second == p2.second);
   }
 };
-
 // [[Rcpp::plugins("cpp11")]]
 
-/*
-Perform repeated checkerboard swaps in an adjacency matrix of a simple directed graph
-
-This swapping produces a draws from the uniform distribution of all directed graphs
-with the same row and column sums.
-
-@Re_from: list of originating vertices for each edge
-@Re_to: list of terminating vertices for each edge
-@n: number of swaps to perform
-@swap_p: base probability of performing a swap (need swap_p < 1 for aperiodicity).
-@seed: optional seed for random number generators
-*/
+//' simple_swap_n
+//'
+//' Perform repeated checkerboard swaps in an adjacency matrix of a simple directed graph
+//' This swapping produces a draws from the uniform distribution of all directed graphs
+//' with the same row and column sums.
+//'
+//' @param Re_from list of originating vertices for each edge
+//' @param Re_to list of terminating vertices for each edge
+//' @param n number of swaps to perform
+//' @param swap_p base probability of performing a swap (need swap_p < 1 for aperiodicity)
+//' @param seed optional seed for random number generators
+//' @export
 // [[Rcpp::export]]
 List simple_swap_n(SEXP Re_from, SEXP Re_to, int n, double swap_p, double seed=-1) {
   // Create cpp versions of R objects
@@ -93,22 +92,21 @@ List simple_swap_n(SEXP Re_from, SEXP Re_to, int n, double swap_p, double seed=-
   return edges;
 }
 
-
-/*
-Perform repeated checkerboard swaps in an adjacency matrix of a simple directed graph,
-respecting structural zeros and swapping according to weights.
-
-This swapping produces a draws from the non-uniform distribution of all directed graphs
-with the same row and column sums, with probabilities determined by the edge weights.
-
-@Re_from: list of originating vertices for each edge
-@Re_to: list of terminating vertices for each edge
-@n: number of swaps to perform
-@Rz_from: list of originating vertices for each structural zero
-@Rz_to: list of terminating vertices for each structural zero
-@swap_p: base probability of performing a swap (need swap_p < 1 for aperiodicity).
-@seed: optional seed for random number generators
-*/
+//' swap_n
+//'
+//' Perform repeated checkerboard swaps in an adjacency matrix of a simple directed graph,
+//' respecting structural zeros and swapping according to weights.
+//' This swapping produces a draws from the non-uniform distribution of all directed graphs
+//' with the same row and column sums, with probabilities determined by the edge weights.
+//'
+//' @param Re_from list of originating vertices for each edge
+//' @param Re_to list of terminating vertices for each edge
+//' @param n number of swaps to perform
+//' @param Rz_from list of originating vertices for each structural zero
+//' @param Rz_to list of terminating vertices for each structural zero
+//' @param swap_p base probability of performing a swap (need swap_p < 1 for aperiodicity).
+//' @param seed optional seed for random number generators
+//' @export
 // [[Rcpp::export]]
 List swap_n(SEXP Re_from, SEXP Re_to, int n, SEXP Rw, SEXP Rz_from, SEXP Rz_to, double seed=-1) {
   // Create cpp versions of R objects
