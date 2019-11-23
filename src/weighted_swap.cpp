@@ -127,20 +127,20 @@ List swap_n(SEXP Re_from, SEXP Re_to, int n, SEXP Rw, SEXP Rz_from, SEXP Rz_to, 
   std::uniform_int_distribution<> randint(0, m-1);  // for selecting an edge
   std::uniform_real_distribution<> randu(0.0, 1.0);  // for deciding whether to swap
   double u;
-  Rcpp::Rcout << "Building edge hashmap\n";
+  //Rcpp::rcout << "Building edge hashmap\n";
   // Build hashmap for edges
   std::unordered_set< std::pair<int,int>, pair_hash, pair_equal> edgeSet;
   for (int i=0; i<m; i++){
     edgeSet.insert(std::make_pair(e_from[i], e_to[i]));
   }
-  Rcpp::Rcout << "Building zeros hashmap\n";
+  //Rcpp::Rcout << "Building zeros hashmap\n";
   // Build hashmap for struct zeros
   std::unordered_set< std::pair<int,int>, pair_hash, pair_equal> zeroSet;
   for (int i=0; i<m; i++){
     zeroSet.insert(std::make_pair(z_from[i], z_to[i]));
   }
   // perform swaps
-  Rcpp::Rcout << "Allocating variables\n";
+  //Rcpp::Rcout << "Allocating variables\n";
   int i;
   int j;
   int e_from_i;
@@ -156,7 +156,7 @@ List swap_n(SEXP Re_from, SEXP Re_to, int n, SEXP Rw, SEXP Rz_from, SEXP Rz_to, 
   Rcpp::LogicalVector can_swap (n);
   Rcpp::LogicalVector did_swap (n);
   Rcpp::NumericVector swap_ps (n);
-  Rcpp::Rcout << "Swapping\n";
+  //Rcpp::Rcout << "Swapping\n";
   for (int k=0; k<n; k++){
     // select two edges
     i = randint(gen);
@@ -202,7 +202,7 @@ List swap_n(SEXP Re_from, SEXP Re_to, int n, SEXP Rw, SEXP Rz_from, SEXP Rz_to, 
       e_from[j] = e_from_i;
     }
   }
-  Rcpp::Rcout << "Creating list\n";
+  //Rcpp::Rcout << "Creating list\n";
   List edges;
   edges["from"] = e_from;
   edges["to"] = e_to;
@@ -211,5 +211,6 @@ List swap_n(SEXP Re_from, SEXP Re_to, int n, SEXP Rw, SEXP Rz_from, SEXP Rz_to, 
   edges["is_not_struct_zeros"] = is_not_struct_zeros;
   edges["can_swap"] = can_swap;
   edges["did_swap"] = did_swap;
+  edges["swap_p"] = swap_ps;
   return edges;
 }
